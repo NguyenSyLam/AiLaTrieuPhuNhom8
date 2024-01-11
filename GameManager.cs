@@ -17,6 +17,13 @@ namespace Section2
         public string answerD;
         public string correctAnswer;
     }
+    public enum GameState
+    {
+        Home,
+        Gameplay,
+        Gameover
+        
+    }
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI m_TxtQuestion;
@@ -28,34 +35,42 @@ namespace Section2
         [SerializeField] private Image m_ImgAnswerB;
         [SerializeField] private Image m_ImgAnswerC;
         [SerializeField] private Image m_ImgAnswerD;
-    
-        [SerializeField] private QuestionData m_QuestionData;
-        
+        [SerializeField] public GameObject m_HomePanel;
+        [SerializeField] public GameObject m_GamePanel ;
+        [SerializeField] public GameObject m_GameoverPanel;
+        [SerializeField] private QuestionData[] m_QuestionData;
 
+        private int m_QuestionIndex;
+        private GameState m_GameState;
+        private int m_Live = 3;
         void Start()
         {
-            m_TxtQuestion.text = m_QuestionData.question;
-            m_TxtAnswerA.text = "A: " + m_QuestionData.answerA;
-            m_TxtAnswerB.text = "B: " + m_QuestionData.answerB;
-            m_TxtAnswerC.text = "C: " + m_QuestionData.answerC;           
-            m_TxtAnswerD.text = "D: " + m_QuestionData.answerD;
+            SetGameState(GameState.Home);
+            m_QuestionIndex = 0;
+            InitQuestion(0);
 
         }
 
         // Update is called once per frame
         void Update()
-        {
+        {   
+
             
         }
         public void BtnAnswer_Pressed(string pSelectedAnswer){
 
             bool traLoiDung = false;
 
-            if(m_QuestionData.correctAnswer == pSelectedAnswer)
-            {
+            if(m_QuestionData[m_QuestionIndex].correctAnswer == pSelectedAnswer)
+            {   traLoiDung = true;
                 Debug.Log("Cau tra loi chinh xac");
             }
             else {
+                m_Live--;
+                if(m_Live == 0){
+                    SetGameState(GameState.Gameover);
+                }
+                traLoiDung = false;
                 Debug.Log("Ban da tra loi sai");
             }
                 
@@ -86,8 +101,38 @@ namespace Section2
                 InitQuestion(m_QuestionIndex);
             }
         }
+        private void InitQuestion(int pIndex){
+            pIndex = 1;
+            if(pIndex < 0 || pIndex >= m_QuestionData.Length)
+                return;
 
+            m_ImgAnswerA.color = Color.white;
+            m_ImgAnswerB.color = Color.white;
+            m_ImgAnswerC.color = Color.white;
+            m_ImgAnswerD.color = Color.white;
+            m_TxtQuestion.text = "Câu " + pIndex +" : "+ m_QuestionData[pIndex].question;   
+            m_TxtAnswerA.text = "A: " + m_QuestionData[pIndex].answerA;
+            m_TxtAnswerB.text = "B: " + m_QuestionData[pIndex].answerB;
+            m_TxtAnswerC.text = "C: " + m_QuestionData[pIndex].answerC;
+            m_TxtAnswerD.text = "D: " + m_QuestionData[pIndex].answerD;
+
+        }
+        public void SetGameState(GameState state){
+            m_Live = 3;
+            m_GameState = state; 
     
+
+        }
+        public void BtnPlay_Pressed()
+        {
+            m_Live = 3;
+            SetGameState(GameState.Gameplay);
+
+        }
+        public void BtnHome_Pressed()
+        {
+            SetGameState(GameState.Home);
+        }
     }
 
 }
