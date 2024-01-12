@@ -14,7 +14,7 @@
 
 ## Hướng dẫn sử dụng
 
-1. Mở Scene `Gameplay` trong thư mục `Scenes`.
+1. Mở Scene `Gameplay` trong thư mục `Section`.
 2. Chạy trò chơi trong Unity để bắt đầu chơi.
 3. Người chơi sẽ được đưa ra các câu hỏi và có 4 lựa chọn để trả lời.
 4. Sử dụng chuột để chọn đáp án.
