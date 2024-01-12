@@ -71,6 +71,7 @@ namespace Section2
                 if(m_Live == 0){
                     SetGameState(GameState.Gameover);
                 }
+                
                 traLoiDung = false;
                 Debug.Log("Ban da tra loi sai");
             }
@@ -119,7 +120,7 @@ namespace Section2
 
         }
         public void SetGameState(GameState state){
-            m_Live = 3;
+            m_Live = 2;
             m_GameState = state; 
     
 
