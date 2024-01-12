@@ -21,7 +21,8 @@ namespace Section2
     {
         Home,
         Gameplay,
-        Gameover
+        Gameover,
+        Gamewin
         
     }
     public class GameManager : MonoBehaviour
@@ -42,7 +43,7 @@ namespace Section2
 
         private int m_QuestionIndex;
         private GameState m_GameState;
-        private int m_Live = 3;
+        private int m_Live = 2;
         void Start()
         {
             SetGameState(GameState.Home);
