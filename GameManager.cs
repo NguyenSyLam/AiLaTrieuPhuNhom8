@@ -127,7 +127,7 @@ namespace Section2
         }
         public void BtnPlay_Pressed()
         {
-            m_Live = 3;
+            m_Live = 2;
             SetGameState(GameState.Gameplay);
 
         }
